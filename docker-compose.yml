@@ -1,0 +1,33 @@
+version: '3.5'
+
+services:
+  app:
+    image: bref/fpm-dev-gateway
+    ports:
+      - '8000:80'
+    volumes:
+      - ./backend/api/:/var/task
+    depends_on:
+      - php
+      - mysql
+    environment:
+      HANDLER: public/index.php
+      DOCUMENT_ROOT: public
+      HY: 1
+  php:
+    build:
+        context: ./backend
+    volumes:
+      - ./backend/api/:/var/task
+  mysql:
+    image: mysql:8.0.21
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - "3307:3306"
+    expose:
+      - 3307
+    environment:
+        MYSQL_ROOT_PASSWORD: m4st3rP4ssw0rd!
+        MYSQL_DATABASE: origo_test
+    volumes:
+      - /var/lib/mysql

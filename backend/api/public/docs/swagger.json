@@ -1,0 +1,204 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Laravel",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "host": "localhost:8000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "security": [
+    {
+      "oAuthNoScopes": []
+    }
+  ],
+  "paths": {
+    "/oauth/client-secret": {
+        "get":{
+            "summary": "Get client secret/id to make auth.",
+            "security": [],
+            "tags": ["Auth"],
+            "description": "",
+            "deprecated": false,
+            "responses": {
+              "200": {
+                "description": "OK"
+              }
+            }
+        }
+    },
+    "/clients": {
+      "get": {
+        "summary": "Display a listing of the resource.",
+        "tags": ["Client"],
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "summary": "Store a newly created resource in storage.",
+        "tags": ["Client"],
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "schema": {
+              "type": "object",
+              "required": [
+                "name",
+                "phone",
+                "city_id",
+                "birth_day",
+                "email"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "string"
+                },
+                "city_id": {
+                  "type": "integer"
+                },
+                "birth_day": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "/clients/{client}": {
+      "get": {
+        "summary": "Display the specified resource.",
+        "tags": ["Client"],
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "client",
+            "type": "integer",
+            "required": true,
+            "description": ""
+          }
+        ]
+      },
+      "put": {
+        "summary": "Update the specified resource in storage.",
+        "tags": ["Client"],
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "client",
+            "type": "integer",
+            "required": true,
+            "description": ""
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "schema": {
+              "type": "object",
+              "required": [
+                "name",
+                "phone",
+                "city_id",
+                "birth_day",
+                "email"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "string"
+                },
+                "city_id": {
+                  "type": "integer"
+                },
+                "birth_day": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Remove the specified resource from storage.",
+        "tags": ["Client"],
+        "description": "",
+        "deprecated": false,
+        "responses": {
+          "204": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "client",
+            "type": "integer",
+            "required": true,
+            "description": ""
+          }
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "oAuthNoScopes": {
+      "type": "oauth2",
+      "description": "See https://developers.getbase.com/docs/rest/articles/oauth2/requests",
+      "flow": "password",
+      "tokenUrl": "http://localhost:8000/oauth/token",
+      "scopes": {}
+    }
+  }
+}
