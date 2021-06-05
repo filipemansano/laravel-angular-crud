@@ -5,7 +5,7 @@ start:
 	docker-compose up --force-recreate --remove-orphans -d
 
 stop:
-	docker-compose down
+	docker-compose stop
 
 install:
 	docker-compose run --rm php bash -c "cp -n '.env.example' '.env'; php composer.phar install"
