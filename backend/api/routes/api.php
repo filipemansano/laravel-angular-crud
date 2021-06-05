@@ -25,5 +25,7 @@ Route::apiResource('clients', ClientController::class)->middleware('auth:api');
  * this method is chosen
  */
 Route::get('oauth/client-secret', function () {
-    return response(DB::table('oauth_clients')->where('name', '=', 'webapp')->get(['id', 'secret', 'name']));
+    return response([
+        'data' => DB::table('oauth_clients')->where('name', '=', 'webapp')->first(['id', 'secret', 'name'])
+    ]);
 });

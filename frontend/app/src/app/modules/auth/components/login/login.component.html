@@ -1,0 +1,42 @@
+<div class="wrapper">
+
+  <mat-card class="box">
+
+    <h2 class="text-center">Bem vindo</h2>
+    <div class="logo">
+      <img src="https://i2.wp.com/multarte.com.br/wp-content/uploads/2019/03/logo-facebook-png7.png" *ngIf="theme !== 'dark'"  />
+      <img src="https://cdn.freebiesupply.com/images/large/2x/facebook-logo-white-full-transparent.png" *ngIf="theme === 'dark'" />
+    </div>
+
+    <form class="login-area" [formGroup]="loginForm">
+
+      <p>
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="Email" formControlName="username">
+          <mat-icon matPrefix>fingerprint_outlined</mat-icon>
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password">
+          <button mat-icon-button matPrefix (click)="hidePassword = !hidePassword">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+      </p>
+
+      <p>
+        <button mat-flat-button [loading]="loading" color="primary" class="w-full btn-login"
+          (click)="login()">
+          <mat-icon>lock_outlined</mat-icon>
+          Entrar
+        </button>
+      </p>
+
+    </form>
+
+  </mat-card>
+</div>

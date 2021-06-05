@@ -1,0 +1,66 @@
+@import 'color';
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($light-theme);
+
+
+// Custom font-family theme
+$app-font: mat-typography-config(
+  $font-family: 'Montserrat'
+);
+@include angular-material-typography($app-font);
+
+.primary-color {
+
+  &-bg {
+    background-color: mat-color($light-primary);
+  }
+
+  &-text {
+    color: mat-color($light-primary);
+
+    &-hover:hover {
+      color: mat-color($light-primary);
+    }
+  }
+}
+
+.accent-color {
+
+  &-bg {
+    background-color: mat-color($light-accent);
+  }
+
+  &-text {
+    color: mat-color($light-accent);
+
+    &-hover:hover {
+      color: mat-color($light-accent);
+    }
+  }
+}
+
+.warn-color {
+
+  &-bg {
+    background-color: mat-color($light-warn);
+  }
+
+  &-text {
+    color: mat-color($light-warn);
+
+    &-hover:hover {
+      color: mat-color($light-warn);
+    }
+  }
+}
+
+.theme-bg-color{
+  background-color: white;
+}
+
+.theme-text-color{
+  color: $dark-primary-text;
+}

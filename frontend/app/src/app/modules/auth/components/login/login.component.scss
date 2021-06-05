@@ -1,0 +1,55 @@
+.wrapper {
+  height: 100vh;
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box {
+
+  width: 100%;
+  max-width: 480px;
+  padding: 50px;
+
+  .logo {
+    text-align: center;
+
+    img {
+      width: calc(100% - 50px);
+    }
+  }
+
+  .login-area {
+
+    width: 100%;
+    margin-top: 30px;
+
+    mat-icon {
+      vertical-align: middle;
+      font-size: 22px;
+    }
+
+    mat-spinner {
+      position: absolute;
+      left: 50%;
+      top: 17%;
+    }
+
+    mat-form-field {
+
+      width: 100%;
+
+      mat-icon {
+        font-size: 22px;
+        margin-top: -3px;
+      }
+
+      mat-label,
+      input {
+        margin-left: 10px;
+      }
+    }
+  }
+}

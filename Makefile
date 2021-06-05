@@ -12,3 +12,6 @@ install:
 
 test:
 	docker-compose run --rm php bash -c "./vendor/bin/phpunit"
+
+angular-dev-server:
+	docker-compose exec angular bash -c "ng serve --host 0.0.0.0"

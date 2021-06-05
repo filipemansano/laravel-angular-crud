@@ -18,7 +18,7 @@ services:
   angular:
     build:
       context: ./frontend
-    command: 'ng serve --host 0.0.0.0'
+    tty: true
     ports:
        - '9000:4200'
     expose:
