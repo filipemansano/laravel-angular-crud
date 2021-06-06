@@ -1,0 +1,45 @@
+li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  .children
+  {
+    .nav-item-info:before {
+      content: "";
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: #89879f;
+      position: absolute;
+      left: 0px;
+      border-radius: 4px;
+    }
+  }
+
+  & > a {
+    font-weight: 400;
+    display: inline-block;
+    font-size: 15px;
+
+    .nav-item-info {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+
+      .title {
+        display: flex;
+        align-items: center;
+      }
+
+      .routeIcon {
+        max-width: 24px;
+        max-height: 24px;
+        height: 100%;
+        margin-right: 5px;
+        margin-top: -3px;
+      }
+    }
+  }
+}

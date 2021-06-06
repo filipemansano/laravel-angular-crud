@@ -1,5 +1,22 @@
 @tailwind utilities;
 
+body {
+  background-color: #fafafa;
+
+  &.dark-theme{
+    background-color: #202020;
+  }
+
+  margin: 0;
+}
+
+.page-title{
+  font-weight: 300;
+  margin: 0;
+  padding: 15px 8px 35px;
+  font-size: 30px;
+}
+
 .mat-loading .mat-button-wrapper {
   visibility: hidden;
 }

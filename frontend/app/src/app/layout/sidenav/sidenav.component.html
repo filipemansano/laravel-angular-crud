@@ -1,0 +1,10 @@
+<div class="primary-color-bg nav-header">
+  <img src="assets/logo-origo.svg" *ngIf="theme === 'dark'" />
+  <img src="assets/logo-origo-white.svg" *ngIf="theme !== 'dark'"/>
+</div>
+
+<mat-nav-list>
+  <ul class="menu-content">
+    <app-menu-item *ngFor="let item of navItens" [item]="item"></app-menu-item>
+  </ul>
+</mat-nav-list>

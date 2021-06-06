@@ -1,0 +1,27 @@
+<li>
+  <a class="primary-color-text-hover" mat-list-item [ngStyle]="{'padding-left': (depth * 30) + 'px'}" (click)="onItemSelected(item)" [ngClass]="{
+    'active': item.route ? router.isActive(item.route, true) : false,
+    'expanded': expanded,
+    'children': depth > 0
+  }">
+
+    <div class="nav-item-info" [class.primary-color-text]="expanded">
+
+      <div class="title">
+        <mat-icon class="routeIcon" *ngIf="depth == 0" >{{ item.iconName }}</mat-icon>
+        <span>{{ item.displayName }}</span>
+      </div>
+
+      <mat-icon [@indicatorRotate]="expanded ? 'expanded': 'collapsed'" *ngIf="item.children && item.children.length">
+        keyboard_arrow_right
+      </mat-icon>
+
+    </div>
+
+  </a>
+
+  <div *ngIf="expanded">
+    <app-menu-item *ngFor="let child of item.children" [item]="child" [depth]="depth+1"></app-menu-item>
+  </div>
+
+</li>

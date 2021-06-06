@@ -1,0 +1,15 @@
+:host{
+  ::ng-deep{
+    .p-breadcrumb {
+      margin-bottom: 20px!important;
+      font-size: 15px;
+      font-weight: 400;
+      ul {
+        li:last-child{
+          opacity: 0.5;
+        }
+      }
+    }
+  }
+}
+

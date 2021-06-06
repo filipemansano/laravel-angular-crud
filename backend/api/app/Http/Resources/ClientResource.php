@@ -27,4 +27,16 @@ class ClientResource extends JsonResource
             'birth_day'  => $this->birth_day->format('Y-m-d'),
         ];
     }
+
+     /**
+     * Customize the response for a request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\JsonResponse  $response
+     * @return void
+     */
+    public function withResponse($request, $response)
+    {
+        unset($response['meta']);
+    }
 }

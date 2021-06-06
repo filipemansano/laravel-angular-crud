@@ -1,0 +1,17 @@
+@import 'color';
+
+.save-button {
+  color: mat-color($green);
+}
+
+.table-header{
+  display: flex;
+  justify-content: space-between;
+
+  .title {
+    display: flex;
+    align-items: center;
+  }
+
+
+}

@@ -16,7 +16,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        return ClientResource::collection(Client::paginate());
+        return pagination(new Client(), ClientResource::class);
     }
 
     /**

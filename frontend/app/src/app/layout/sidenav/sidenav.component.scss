@@ -1,0 +1,30 @@
+@import 'variables';
+
+.nav-header {
+  position: fixed;
+  text-align: center;
+  height: $header-size;
+  width: $sidenav-size;
+  z-index: 1;
+
+  img{
+    height: 100%;
+    padding: 9px;
+  }
+}
+
+mat-nav-list {
+  margin-top: $header-size;
+  height: calc(100vh - 6rem);
+  overflow: hidden;
+  position: relative;
+
+  .menu-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: auto;
+    padding-bottom: 30px;
+    padding-left: 0;
+  }
+}

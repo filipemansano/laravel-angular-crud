@@ -1,0 +1,21 @@
+@import 'variables';
+
+
+.mat-drawer-side {
+  border-right: none;
+  box-shadow: 0 8px 10px 0 rgba(183,192,206,.1);
+}
+
+mat-sidenav{
+  width: $sidenav-size;
+}
+
+mat-sidenav-content {
+  & > .main-content {
+    height: calc(100vh - 80px);
+    margin-top: $header-size;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}

@@ -1,0 +1,168 @@
+<p-table
+  [paginator]="paginator"
+  [showCurrentPageReport]="true"
+  currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} regristros"
+  [rowsPerPageOptions]="[5,10,25,50]"
+  [rows]="rows"
+  [value]="(source$ | async)!"
+  [loading]="(loading$ | async)!"
+  [totalRecords]="totalRecords"
+  [lazy]="true"
+  [lazyLoadOnInit]="false"
+  [filters]="filters"
+  [first]="first"
+  [sortField]="sortField"
+  [sortOrder]="sortOrder"
+  [resetPageOnSort]="false"
+  locale="pt"
+  (onLazyLoad)="loadData($event)"
+  [dataKey]="dataKey"
+  editMode="row">
+
+  <ng-template pTemplate="caption">
+      <div class="table-header">
+          <div class="title">
+            {{ title }}
+          </div>
+          <div>
+
+            <button (click)="clickButton(button)" [matTooltip]="button.title" mat-icon-button color="primary" *ngFor="let button of buttons" >
+              <mat-icon>{{ button.icon }}</mat-icon>
+            </button>
+
+            <button (click)="prev()" mat-icon-button color="primary" [disabled]="isFirstPage()">
+              <mat-icon>keyboard_arrow_left</mat-icon>
+            </button>
+            <button (click)="next()" mat-icon-button color="primary" [disabled]="isLastPage()">
+              <mat-icon>keyboard_arrow_right</mat-icon>
+            </button>
+
+            <button (click)="refresh()" mat-icon-button color="primary" matTooltip="Atualizar registros">
+              <mat-icon>refresh</mat-icon>
+            </button>
+
+            <button (click)="reset()" class="reset-button" color="primary" mat-icon-button matTooltip="Resetar filtros">
+              <mat-icon>cached</mat-icon>
+            </button>
+          </div>
+      </div>
+  </ng-template>
+
+  <ng-template pTemplate="header">
+      <tr>
+          <th style="width:9rem;">
+            <button class="w-100" mat-raised-button color="primary" (click)="create()">
+              <mat-icon>add</mat-icon>
+            </button>
+          </th>
+          <th [pSortableColumn]="column.name" *ngFor="let column of visibleColumns">
+
+            <div class="p-d-flex p-jc-between p-ai-center" >
+
+                <span>
+                  {{ column.label }}
+                  <p-sortIcon *ngIf="column.sort" [field]="column.name"></p-sortIcon>
+                </span>
+
+                <p-columnFilter
+                    *ngIf="column.filter && column.type === 'input'"
+                    type="text"
+                    [showMenu]="true"
+                    [matchMode]="matchMode"
+                    [operator]="operator"
+                    [field]="column.name"
+                    display="menu">
+                </p-columnFilter>
+            </div>
+
+          </th>
+          <th *ngIf="actions" style="width:8rem;">Ações</th>
+      </tr>
+  </ng-template>
+
+  <ng-template pTemplate="footer" >
+    <tr *ngIf="creating" >
+      <td>
+        <button (click)="onCreating($event)" mat-icon-button [disabled]="formData['create'].invalid" class="save-button">
+          <mat-icon>done</mat-icon>
+        </button>
+
+        <button (click)="onCancelCreating()" mat-icon-button color="warn">
+          <mat-icon>close</mat-icon>
+        </button>
+      </td>
+      <td *ngFor="let column of visibleColumns">
+
+        <ng-container [ngSwitch]="column.type" *ngIf="column?.editable !== false" >
+
+          <smart-table-input-field *ngSwitchCase="columnsType.INPUT" [value]="column?.defaultValue" [control]="getFormControl('create', column.name)"></smart-table-input-field>
+          <smart-table-custom-field *ngSwitchCase="columnsType.CUSTOM" [control]="getFormControl('create', column.name)" [column]="column"></smart-table-custom-field>
+
+        </ng-container>
+
+      </td>
+      <td *ngIf="actions"></td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-item let-editing="editing" let-ri="rowIndex">
+
+    <tr [pEditableRow]="item">
+      <td style="text-align:center">
+        <button *ngIf="!editing && (!config || config.edit === undefined || config.edit)" (click)="onInit(item)" mat-icon-button color="primary">
+          <mat-icon>edit</mat-icon>
+        </button>
+
+        <button *ngIf="!editing && (!config || config.delete === undefined || config.delete)" (click)="onDelete($event, item)" mat-icon-button color="warn">
+          <mat-icon>delete</mat-icon>
+        </button>
+
+        <button *ngIf="editing" (click)="onSave($event, item)" mat-icon-button [disabled]="formData[item[dataKey]].invalid" class="save-button">
+          <mat-icon>done</mat-icon>
+        </button>
+
+        <button *ngIf="editing" (click)="onCancel(item)" mat-icon-button color="warn">
+          <mat-icon>close</mat-icon>
+        </button>
+
+      </td>
+      <td *ngFor="let column of visibleColumns">
+          <p-cellEditor>
+              <ng-template pTemplate="input" >
+
+                <ng-container [ngSwitch]="column.type">
+                  <smart-table-input-field *ngSwitchCase="columnsType.INPUT" [control]="getFormControl(item[dataKey], column.name)"></smart-table-input-field>
+                </ng-container>
+
+              </ng-template>
+              <ng-template pTemplate="output">
+                  {{ item[column.name] }}
+              </ng-template>
+          </p-cellEditor>
+      </td>
+
+      <td *ngIf="actions">
+        <button color="primary" mat-raised-button [matMenuTriggerData]="{item: item}" [matMenuTriggerFor]="actionMenu">
+          <mat-icon>keyboard_arrow_down</mat-icon>
+          Ações
+        </button>
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="emptymessage">
+      <tr>
+          <td style="text-align: center;" [attr.colspan]="columnsSize">Nenhum registro encontrado.</td>
+      </tr>
+  </ng-template>
+
+</p-table>
+
+
+<p-confirmPopup></p-confirmPopup>
+
+<mat-menu  #actionMenu="matMenu">
+  <ng-template matMenuContent let-item="item">
+    <button mat-menu-item *ngFor="let action of actions" (click)="callAction(item,action)">{{ action.label }}</button>
+  </ng-template>
+</mat-menu>

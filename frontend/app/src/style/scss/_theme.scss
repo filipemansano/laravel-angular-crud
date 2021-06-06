@@ -3,14 +3,16 @@
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include angular-material-theme($light-theme);
 
 
 // Custom font-family theme
-$app-font: mat-typography-config(
-  $font-family: 'Montserrat'
-);
+$app-font: mat-typography-config($font-family: 'Montserrat');
 @include angular-material-typography($app-font);
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker hue.
+
+@include angular-material-theme($light-theme);
 
 .primary-color {
 
@@ -57,10 +59,101 @@ $app-font: mat-typography-config(
   }
 }
 
-.theme-bg-color{
+.theme-bg-color {
   background-color: white;
 }
 
-.theme-text-color{
+.theme-text-color {
   color: $dark-primary-text;
+}
+
+.dark-theme {
+  @include angular-material-color($dark-theme);
+
+  color: $light-primary-text;
+
+  .p-button {
+    background-color: mat-color($dark-primary);
+    color: $light-primary-text;
+  }
+
+  .primary-color {
+
+    &-bg {
+      background-color: mat-color($dark-primary);
+    }
+
+    &-text {
+      color: mat-color($dark-primary);
+
+      &-hover:hover {
+        color: mat-color($dark-primary);
+      }
+    }
+  }
+
+  .accent-color {
+
+    &-bg {
+      background-color: mat-color($dark-accent);
+    }
+
+    &-text {
+      color: mat-color($dark-accent);
+
+      &-hover:hover {
+        color: mat-color($dark-accent);
+      }
+    }
+  }
+
+  .warn-color {
+
+    &-bg {
+      background-color: mat-color($dark-warn);
+    }
+
+    &-text {
+      color: mat-color($dark-warn);
+
+      &-hover:hover {
+        color: mat-color($dark-warn);
+      }
+    }
+  }
+
+  $light-black: #202020;
+  $medium-black: #212121;
+  $dark-black: #181818;
+
+  .theme-bg-color {
+    background-color: $dark-black;
+  }
+
+  .theme-text-color {
+    color: $light-primary-text;
+  }
+
+  .mat-toolbar.mat-primary,
+  .mat-expansion-panel {
+    background: $light-black;
+  }
+
+  .mat-card,
+  .mat-dialog-container,
+  .mat-drawer-container {
+    background-color: $dark-black;
+  }
+
+  .mat-expansion-panel-header {
+    background-color: $medium-black;
+  }
+
+  .mat-drawer {
+    background-color: $light-black;
+
+    .nav-header {
+      background-color: $light-black;
+    }
+  }
 }

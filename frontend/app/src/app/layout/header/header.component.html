@@ -1,0 +1,79 @@
+<mat-toolbar color="primary" [class]="isHandset">
+
+  <div>
+    <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="toggleSideNav()">
+      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    </button>
+  </div>
+
+  <div class="menu-right">
+
+    <button mat-button [matMenuTriggerFor]="menu">
+      <mat-icon>announcement</mat-icon>
+    </button>
+
+    <button mat-button [matMenuTriggerFor]="notificationMenu">
+      <mat-icon matBadge="1" matBadgeColor="warn">notifications_active</mat-icon>
+    </button>
+
+    <button mat-button [matMenuTriggerFor]="menu">
+      <div class="user-btn">
+        <img src="assets/logomarca.jpeg" class="circle responsive-img" />
+
+        <div class="header-info">
+          <span>Olá, <strong>Admin</strong></span>
+          <small>admin@admin.com</small>
+        </div>
+      </div>
+    </button>
+
+    <mat-menu #menu="matMenu">
+
+      <div class="user-info text-center">
+        <div><img src="assets/logomarca.jpeg" class="circle responsive-img" /></div>
+        <div><strong>Admin</strong></div>
+        <div>admin@admin.com</div>
+      </div>
+
+      <mat-divider></mat-divider>
+      <button mat-menu-item>
+        <mat-icon>person_outline</mat-icon>
+        <span>Perfil</span>
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="switchTheme()">
+        <mat-icon>{{ theme === 'dark' ? 'light_mode' : 'dark_mode'}}</mat-icon>
+        <span>{{ theme === 'dark' ? 'Light' : 'Dark'}} Mode</span>
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon color="warn">logout</mat-icon>
+        <span>Sair</span>
+      </button>
+    </mat-menu>
+
+
+    <mat-menu #notificationMenu="matMenu">
+
+      <div class="notifications">
+
+        <div *ngFor="let notification of notifications; let i = index" class="notification">
+          <button mat-button class="body">
+            <div class="title">{{ notification.title }} </div>
+            <div class="description">{{ notification.description }}</div>
+            <div class="date">{{ notification.created_at | date }}</div>
+          </button>
+          <mat-divider></mat-divider>
+        </div>
+
+        <button mat-menu-item class="clear">
+          <mat-icon>delete</mat-icon>
+          <span>Limpar tudo</span>
+        </button>
+      </div>
+
+    </mat-menu>
+
+  </div>
+
+</mat-toolbar>
