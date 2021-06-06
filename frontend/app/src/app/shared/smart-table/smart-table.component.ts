@@ -426,14 +426,16 @@ export class SmartTableComponent implements OnInit, OnDestroy {
       rejectLabel: 'Não',
       accept: () => {
 
-        const fnc = this.customDeleteFunction ? this.customDeleteFunction(data) : this.entityService.delete(data);
+        const fnc = this.customDeleteFunction ? this.customDeleteFunction(data) : this.entityService.delete(data, {
+          isOptimistic: false
+        });
 
         fnc.subscribe(() => {
           this.totalRecords--;
 
           this.source$ = this.source$.pipe(
             map(l => l.filter(i => i[this.dataKey] !== data[this.dataKey]))
-          )
+          );
         });
       }
     });

@@ -38,11 +38,15 @@ export class ErrorInterceptor {
           authenticationService.logout();
         }
 
-        const message = err.error.message || err.message;
+        let message = err.error.message || err.message;
+
+        if (err.error.errors){
+          message = Object.values(err.error.errors).join(', ');
+        }
 
         this.snackBar.open(message, 'OK', {
           horizontalPosition: 'right',
-          verticalPosition: 'bottom'
+          verticalPosition: 'bottom',
         });
 
 
