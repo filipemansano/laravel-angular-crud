@@ -28,6 +28,11 @@ class Client extends Model
 
     public function plans()
     {
-        return $this->belongsToMany(Plan::class, 'client_plan', 'client_id');
+        return $this->belongsToMany(Plan::class, 'client_plan', 'client_id')->using(ClientPlanPivot::class);
+    }
+
+    protected function sync($data)
+    {
+        dd('x');
     }
 }

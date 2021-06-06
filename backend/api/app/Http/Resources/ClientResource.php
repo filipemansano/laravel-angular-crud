@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Plan;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ClientResource extends JsonResource
@@ -24,19 +25,14 @@ class ClientResource extends JsonResource
                 'id'    => $this->city_id,
                 'name'  => $this->city->name
             ],
+            'plans' => $this->plans->map(function(Plan $item){
+                return [
+                    'id' => $item->id,
+                    'name' => $item->name,
+                    'monthly_payment' => $item->monthly_payment,
+                ];
+            }),
             'birth_day'  => $this->birth_day->format('Y-m-d'),
         ];
-    }
-
-     /**
-     * Customize the response for a request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Illuminate\Http\JsonResponse  $response
-     * @return void
-     */
-    public function withResponse($request, $response)
-    {
-        unset($response['meta']);
     }
 }

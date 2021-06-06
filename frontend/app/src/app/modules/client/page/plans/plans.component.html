@@ -1,0 +1,13 @@
+<app-association-table *ngIf="plans != null"
+  [source]="plans.avaliables"
+  [target]="plans.selecteds"
+  [sourceHeader]="'Planos Disponíveis'"
+  [targetHeader]="'Planos Selecionadas'"
+  [height]="300"
+></app-association-table>
+
+<div class="text-right mt-8">
+  <button mat-raised-button color="primary" (click)="save($event)">Salvar</button>
+</div>
+
+<p-confirmPopup></p-confirmPopup>

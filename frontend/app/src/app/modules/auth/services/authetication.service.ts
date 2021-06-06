@@ -62,8 +62,6 @@ export class AuthenticationService {
 
       if (!token) {
         this.redirectToLogin();
-      }else{
-        this.redirectToHome();
       }
 
     });

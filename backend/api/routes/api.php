@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\CityController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\PlanController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
@@ -15,8 +17,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 Route::apiResource('clients', ClientController::class)->middleware('auth:api');
+Route::put('clients/{id}/plans/sync', [ClientController::class, 'syncPlans'])->name('sync.plans')->middleware('auth:api');
+
+
+Route::apiResource('plans', PlanController::class)->middleware('auth:api')->only([
+    'index'
+]);
+
+Route::apiResource('cities', CityController::class)->middleware('auth:api')->only([
+    'index'
+]);
 
 /**
  * dynamic way to get client-secret to use in web app

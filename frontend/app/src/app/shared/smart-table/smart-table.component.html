@@ -9,6 +9,7 @@
   [totalRecords]="totalRecords"
   [lazy]="true"
   [lazyLoadOnInit]="false"
+  [responsive]="true"
   [filters]="filters"
   [first]="first"
   [sortField]="sortField"
@@ -97,7 +98,7 @@
 
           <smart-table-input-field *ngSwitchCase="columnsType.INPUT" [value]="column?.defaultValue" [control]="getFormControl('create', column.name)"></smart-table-input-field>
           <smart-table-custom-field *ngSwitchCase="columnsType.CUSTOM" [control]="getFormControl('create', column.name)" [column]="column"></smart-table-custom-field>
-
+          <app-city-select *ngSwitchCase="columnsType.CITY" [placeholder]="'Selecione uma cidade'" [control]="getFormControl('create', column.name)"></app-city-select>
         </ng-container>
 
       </td>
@@ -130,13 +131,20 @@
           <p-cellEditor>
               <ng-template pTemplate="input" >
 
-                <ng-container [ngSwitch]="column.type">
+                <ng-container [ngSwitch]="column.type" *ngIf="column.editable !== false" >
                   <smart-table-input-field *ngSwitchCase="columnsType.INPUT" [control]="getFormControl(item[dataKey], column.name)"></smart-table-input-field>
+                  <app-city-select *ngSwitchCase="columnsType.CITY" [placeholder]="getValue(item, column, 'display')" [control]="getFormControl(item[dataKey], column.name)"></app-city-select>
                 </ng-container>
 
+                <div *ngIf="column.editable === false">
+                  <input pInputText type="text" class="w-full" [value]="getValue(item, column, 'display')" disabled />
+
+                </div>
+
               </ng-template>
+
               <ng-template pTemplate="output">
-                  {{ item[column.name] }}
+                <p class="truncate" [title]="getValue(item, column, 'display')">{{ getValue(item, column, 'display') }}</p>
               </ng-template>
           </p-cellEditor>
       </td>

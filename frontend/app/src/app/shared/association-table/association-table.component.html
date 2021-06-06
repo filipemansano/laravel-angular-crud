@@ -1,0 +1,14 @@
+<p-pickList
+  [sourceHeader]="sourceHeader"
+  [targetHeader]="targetHeader"
+  [dragdrop]="true"
+  [responsive]="true"
+  [sourceStyle]="{'height': height + 'px'}"
+  [targetStyle]="{'height': height + 'px'}"
+  filterBy="name"
+  [source]="source"
+  [target]="target">
+  <ng-template let-item pTemplate="item">
+      {{ item.label }}
+  </ng-template>
+</p-pickList>

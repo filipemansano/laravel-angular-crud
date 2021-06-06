@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ClientFormRequest;
+use App\Http\Requests\ClientPlanFormRequest;
 use App\Http\Resources\ClientResource;
 use App\Models\Client;
 
@@ -70,5 +71,11 @@ class ClientController extends Controller
         }
 
         return response(null, 404);
+    }
+
+    public function syncPlans(ClientPlanFormRequest $request, $id)
+    {
+        Client::findOrFail($id)->plans()->sync($request->get('plans'));
+        return response(null, 204);
     }
 }

@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\Pagination;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class City extends Model
 {
     use HasFactory;
+    use Pagination;
 
     protected $table = 'cities';
 

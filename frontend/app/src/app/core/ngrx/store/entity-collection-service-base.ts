@@ -8,10 +8,10 @@ export abstract class CustomEntityCollectionServiceBase<T> extends EntityCollect
     return this.entityMap$.pipe(
       take(1),
       switchMap(entities => {
-        if(!entities || !entities[key]){
+        if (!entities || !entities[key]) {
           return this.getByKey(key);
-        }else{
-          return <Observable<T>> of(entities[key])
+        } else {
+          return of(entities[key]) as Observable<T>;
         }
       })
     );
@@ -20,7 +20,7 @@ export abstract class CustomEntityCollectionServiceBase<T> extends EntityCollect
   selectCacheByKey(key: any): Observable<T> {
     return this.entityMap$.pipe(
       take(1),
-      map(entities => <T> entities[key]),
+      map(entities => entities[key] as T),
       first()
     );
   }

@@ -190,6 +190,73 @@
           }
         ]
       }
+    },
+    "/clients/{client}/plans/sync": {
+        "put": {
+          "summary": "Sync plans with client.",
+          "tags": ["Client"],
+          "description": "",
+          "deprecated": false,
+          "responses": {
+            "204": {
+              "description": "OK"
+            }
+          },
+          "parameters": [
+            {
+              "in": "path",
+              "name": "client",
+              "type": "integer",
+              "required": true,
+              "description": ""
+            },
+            {
+                "in": "body",
+                "name": "body",
+                "description": "",
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "plans"
+                  ],
+                  "properties": {
+                    "plans": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                }
+              }
+          ]
+        }
+    },
+    "/plans": {
+        "get": {
+          "summary": "Display a listing of the resource.",
+          "tags": ["Plans"],
+          "description": "",
+          "deprecated": false,
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+    },
+    "/cities": {
+        "get": {
+          "summary": "Display a listing of the resource.",
+          "tags": ["City"],
+          "description": "",
+          "deprecated": false,
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
     }
   },
   "securityDefinitions": {

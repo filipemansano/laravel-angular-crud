@@ -52,7 +52,7 @@ export class SmartTableComponent implements OnInit, OnDestroy {
   public creating = false;
   public formData: { [s: string]: FormGroup; } = {};
   public visibleColumns!: Column[];
-  public columnsSize!:number;
+  public columnsSize!: number;
 
   public columnsType = ColumnType;
 
@@ -79,7 +79,7 @@ export class SmartTableComponent implements OnInit, OnDestroy {
   public loading$!: Observable<boolean>;
   public source$!: Observable<any[]>;
 
-  private _previousFilters!:Filter;
+  private _previousFilters!: Filter;
   private traceRequestId: string;
 
   constructor(
@@ -92,7 +92,7 @@ export class SmartTableComponent implements OnInit, OnDestroy {
     this.traceRequestId = uuid.v4();
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this._destroy$.next(null);
     this._destroy$.complete();
   }
@@ -101,13 +101,13 @@ export class SmartTableComponent implements OnInit, OnDestroy {
 
     this.configPrimeNG.setTranslation({
       startsWith: 'Começa com',
-      contains:	'Contém',
-      notContains:	'Não contém',
-      endsWith:	'Termina com',
-      equals:	'Igual',
-      notEquals:	'Diferente',
-      matchAll:	'Encontra com: todas regras',
-      matchAny:	'Encontra com: qualquer regra',
+      contains: 'Contém',
+      notContains: 'Não contém',
+      endsWith: 'Termina com',
+      equals: 'Igual',
+      notEquals: 'Diferente',
+      matchAll: 'Encontra com: todas regras',
+      matchAny: 'Encontra com: qualquer regra',
       addRule: 'Adicionar Regra',
       clear: 'Limpar',
       apply: 'Aplicar',
@@ -121,12 +121,12 @@ export class SmartTableComponent implements OnInit, OnDestroy {
     this.initCreate();
   }
 
-  private getData(): void{
+  private getData(): void {
 
     // get loading state
     this.loading$ = this.entityService.loading$.pipe(takeUntil(this._destroy$));
 
-    this.loadPreviousFilters().subscribe( lastFilter => {
+    this.loadPreviousFilters().subscribe(lastFilter => {
 
       this.listeningFilters();
 
@@ -135,19 +135,19 @@ export class SmartTableComponent implements OnInit, OnDestroy {
       this.entityService.selectors$.pageInfo$.pipe(
         tap(() => ++changes),
         takeUntil(this._destroy$),
-      ).subscribe( (info: PageInfo | null) => {
+      ).subscribe((info: PageInfo | null) => {
 
 
         /**
          * initial entity state of info is null
          * when is null means it is first call
          */
-        if(info === null || (changes === 1 && !this.reuseLastState)){
+        if (info === null || (changes === 1 && !this.reuseLastState)) {
           this.loadData(lastFilter);
           return;
         }
 
-        if(info.traceKey !== null){
+        if (info.traceKey !== null) {
           return;
         }
 
@@ -160,10 +160,10 @@ export class SmartTableComponent implements OnInit, OnDestroy {
         this._lastPage = info.lastPage;
 
         this.source$ = this.entityService.entities$.pipe(
-          map((entities:any[]) => {
+          map((entities: any[]) => {
             return entities
               .filter(entity => info.ids.includes(entity[this.dataKey]))
-              .sort((a,b) => info.ids.indexOf(a[this.dataKey]) > info.ids.indexOf(b[this.dataKey]) ? 1 : -1  );
+              .sort((a, b) => info.ids.indexOf(a[this.dataKey]) > info.ids.indexOf(b[this.dataKey]) ? 1 : -1);
           })
         );
       });
@@ -171,13 +171,13 @@ export class SmartTableComponent implements OnInit, OnDestroy {
     });
   }
 
-  public loadData(event: LazyLoadEvent){
+  public loadData(event: LazyLoadEvent) {
 
     const filters = JSON.parse(JSON.stringify(event));
 
     // if change order, reset page
-    if(this._previousFilters && (this._previousFilters.sortField || this._previousFilters.sortOrder) && (filters.sortField || filters.sortOrder)){
-      if(filters.sortField !== this._previousFilters.sortField || filters.sortOrder !== this._previousFilters.sortOrder){
+    if (this._previousFilters && (this._previousFilters.sortField || this._previousFilters.sortOrder) && (filters.sortField || filters.sortOrder)) {
+      if (filters.sortField !== this._previousFilters.sortField || filters.sortOrder !== this._previousFilters.sortOrder) {
         filters.first = 0;
       }
     }
@@ -185,62 +185,62 @@ export class SmartTableComponent implements OnInit, OnDestroy {
     this.entityService.setFilter(filters);
   }
 
-  private listeningFilters(){
+  private listeningFilters() {
 
     // on change filter/pagination/sort
     this.entityService.filter$.pipe(
       takeUntil(this._destroy$),
       skip(1),
       filter(filters => !!filters)
-    ).subscribe( filters => {
+    ).subscribe(filters => {
 
       this.search(filters);
     });
   }
 
-  private search(filters?: Filter){
+  private search(filters?: Filter) {
 
     let clonedFilter = JSON.parse(JSON.stringify(filters ?? this._previousFilters));
 
-      // add rows if not set
-      if(!clonedFilter.rows){
-        clonedFilter = {
-          ...clonedFilter,
-          rows: this.rows
-        };
-      }
+    // add rows if not set
+    if (!clonedFilter.rows) {
+      clonedFilter = {
+        ...clonedFilter,
+        rows: this.rows
+      };
+    }
 
-      // add fixed filter
-      if(this.fixedFilter){
-        clonedFilter.filters = !clonedFilter.filters ? this.fixedFilter : {
-          ...clonedFilter.filters,
-          ...this.fixedFilter
-        }
+    // add fixed filter
+    if (this.fixedFilter) {
+      clonedFilter.filters = !clonedFilter.filters ? this.fixedFilter : {
+        ...clonedFilter.filters,
+        ...this.fixedFilter
       }
+    }
 
-      this.entityService.getWithQuery(this.paginatorService.getQuery(clonedFilter));
-      this._previousFilters = clonedFilter;
+    this.entityService.getWithQuery(this.paginatorService.getQuery(clonedFilter));
+    this._previousFilters = clonedFilter;
   }
 
-  private loadPreviousFilters(): Observable<Filter>{
+  private loadPreviousFilters(): Observable<Filter> {
 
     return this.entityService.filter$.pipe(
       take(1),
-      map( (filter:any) => {
+      map((filter: any) => {
 
-        if(typeof filter === 'object'){
+        if (typeof filter === 'object') {
 
           const clonedFilter = JSON.parse(JSON.stringify(filter));
 
-          if(clonedFilter.filters){
+          if (clonedFilter.filters) {
             this.filters = clonedFilter.filters;
           }
 
-          if(clonedFilter.sortField){
+          if (clonedFilter.sortField) {
             this.sortField = clonedFilter.sortField;
           }
 
-          if(clonedFilter.sortOrder){
+          if (clonedFilter.sortOrder) {
             this.sortOrder = clonedFilter.sortOrder;
           }
 
@@ -257,52 +257,80 @@ export class SmartTableComponent implements OnInit, OnDestroy {
   }
 
   isLastPage(): boolean {
-      return this._currentPage === this._lastPage;
+    return this._currentPage === this._lastPage;
   }
 
   isFirstPage(): boolean {
-      return this._currentPage === 1;
+    return this._currentPage === 1;
+  }
+
+  getValue(o: any, colum: Column, type = 'input') {
+
+    let s = '';
+
+    if (type === 'display' && colum.valueLabel) {
+      s = colum.valueLabel;
+    } else if (colum.valueProp) {
+      s = colum.valueProp;
+    } else {
+      s = colum.name;
+    }
+
+    if (s.indexOf('.') === -1) {
+      return o[s];
+    }
+
+    const a = s.split('.');
+    for (let i = 0, n = a.length; i < n; ++i) {
+      const k = a[i];
+      if (k in o) {
+        o = o[k];
+      } else {
+        return;
+      }
+    }
+    return o;
   }
 
   next() {
 
-    if(this.isLastPage()){
+    if (this.isLastPage()) {
       return;
     }
 
     let first = this.first;
     let rows = this.rows;
 
-    if(typeof first === 'string'){
+    if (typeof first === 'string') {
       first = parseInt(first, 10);
     }
 
-    if(typeof rows === 'string'){
+    if (typeof rows === 'string') {
       rows = parseInt(rows, 10);
     }
 
-    const filters = {...this.filters, rows, first: first + rows}
+    const filters = { ...this.filters, rows, first: first + rows }
     this.loadData(filters);
   }
 
   prev() {
 
-    if(this.isFirstPage()){
+    if (this.isFirstPage()) {
       return;
     }
 
     let first = this.first;
     let rows = this.rows;
 
-    if(typeof first === 'string'){
+    if (typeof first === 'string') {
       first = parseInt(first, 10);
     }
 
-    if(typeof rows === 'string'){
+    if (typeof rows === 'string') {
       rows = parseInt(rows, 10);
     }
 
-    const filters = {...this.filters, rows, first: first - rows}
+    const filters = { ...this.filters, rows, first: first - rows }
     this.loadData(filters);
   }
 
@@ -315,17 +343,17 @@ export class SmartTableComponent implements OnInit, OnDestroy {
     this.search();
   }
 
-  create(){
+  create() {
     this.creating = true;
   }
 
-  initFilters(){
+  initFilters() {
 
-    const filters:{
+    const filters: {
       [s: string]: FilterMetadata[]
     } = {};
 
-    this.columns.forEach( c => {
+    this.columns.forEach(c => {
       filters[c.name] = [{
         value: null,
         matchMode: this.matchMode,
@@ -336,7 +364,7 @@ export class SmartTableComponent implements OnInit, OnDestroy {
     this.filters = filters;
   }
 
-  initCreate(){
+  initCreate() {
     this.onInit({}, true);
   }
 
@@ -344,17 +372,17 @@ export class SmartTableComponent implements OnInit, OnDestroy {
 
     const key = creating ? 'create' : data[this.dataKey];
 
-    const controls:{
+    const controls: {
       [key: string]: any
     } = {};
 
-    this.columns.forEach( c => {
-      controls[c.name] = [creating ? null : data[c.name], c.validators]
-    })
+    this.columns.forEach(c => {
+      controls[c.name] = [creating ? null : this.getValue(data, c), c.validators];
+    });
 
-    this.formData[ key ] = this.formBuilder.group(controls);
+    this.formData[key] = this.formBuilder.group(controls);
 
-    if(!creating){
+    if (!creating) {
       this.table.initRowEdit(data);
     }
   }
@@ -362,21 +390,21 @@ export class SmartTableComponent implements OnInit, OnDestroy {
   onSave(event: Event, data: any) {
 
     this.confirmationService.confirm({
-        target: <EventTarget> event.target,
-        message: 'Tem certeza que deseja atualizar os dados?',
-        icon: 'pi pi-exclamation-triangle',
-        acceptLabel: 'Sim',
-        rejectLabel: 'Não',
-        accept: () => {
-          const key = data[this.dataKey];
+      target: <EventTarget>event.target,
+      message: 'Tem certeza que deseja atualizar os dados?',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Sim',
+      rejectLabel: 'Não',
+      accept: () => {
+        const key = data[this.dataKey];
 
-          this.entityService.update({
-            ...data,
-            ...this.formData[key].value
-          }).subscribe( () => {
-            this.onCancel(data);
-          });
-        }
+        this.entityService.update({
+          ...data,
+          ...this.formData[key].value
+        }).subscribe(() => {
+          this.onCancel(data);
+        });
+      }
     });
 
   }
@@ -389,76 +417,76 @@ export class SmartTableComponent implements OnInit, OnDestroy {
     this.table.cancelRowEdit(data);
   }
 
-  onDelete(event: Event, data: any){
+  onDelete(event: Event, data: any) {
     this.confirmationService.confirm({
-        target: <EventTarget> event.target,
-        message: 'Tem certeza que deseja deletar o registro?',
-        icon: 'pi pi-exclamation-triangle',
-        acceptLabel: 'Sim',
-        rejectLabel: 'Não',
-        accept: () => {
+      target: <EventTarget>event.target,
+      message: 'Tem certeza que deseja deletar o registro?',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Sim',
+      rejectLabel: 'Não',
+      accept: () => {
 
-          const fnc = this.customDeleteFunction ? this.customDeleteFunction(data) : this.entityService.delete(data);
+        const fnc = this.customDeleteFunction ? this.customDeleteFunction(data) : this.entityService.delete(data);
 
-          fnc.subscribe( () => {
-            this.totalRecords--;
+        fnc.subscribe(() => {
+          this.totalRecords--;
 
-            this.source$ = this.source$.pipe(
-              map(l => l.filter(i => i[this.dataKey] !== data[this.dataKey]))
-            )
-          });
-        }
+          this.source$ = this.source$.pipe(
+            map(l => l.filter(i => i[this.dataKey] !== data[this.dataKey]))
+          )
+        });
+      }
     });
 
   }
 
-  onCreating(event: Event){
+  onCreating(event: Event) {
     this.confirmationService.confirm({
-        target: <EventTarget> event.target,
-        message: 'Tem certeza que deseja criar o registro?',
-        icon: 'pi pi-exclamation-triangle',
-        acceptLabel: 'Sim',
-        rejectLabel: 'Não',
-        accept: () => {
-          const data = this.formData['create'].value;
+      target: <EventTarget>event.target,
+      message: 'Tem certeza que deseja criar o registro?',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Sim',
+      rejectLabel: 'Não',
+      accept: () => {
+        const data = this.formData['create'].value;
 
-          for(let column in data){
-            if(data[column] === undefined || data[column] === null || data[column] === ''){
-              data[column] = this.columns.find(c => c.name === column)?.defaultValue;
-            }
+        for (let column in data) {
+          if (data[column] === undefined || data[column] === null || data[column] === '') {
+            data[column] = this.columns.find(c => c.name === column)?.defaultValue;
           }
-
-          const fnc = this.customCreateFunction ? this.customCreateFunction(data) : this.entityService.add(data);
-
-          fnc.subscribe( () => {
-            this.search();
-            this.onCancelCreating();
-          });
         }
+
+        const fnc = this.customCreateFunction ? this.customCreateFunction(data) : this.entityService.add(data);
+
+        fnc.subscribe(() => {
+          this.search();
+          this.onCancelCreating();
+        });
+      }
     });
 
   }
 
-  onCancelCreating(){
+  onCancelCreating() {
     this.formData['create'].reset();
     this.creating = false;
   }
 
-  getFormControl(key: string, column: string): FormControl{
-    return <FormControl> this.formData[ key ].get(column);
+  getFormControl(key: string, column: string): FormControl {
+    return <FormControl>this.formData[key].get(column);
   }
 
-  callAction(item:any, action: Action){
+  callAction(item: any, action: Action) {
     action.callback(item[this.dataKey]);
   }
 
-  clickButton(button: Button){
+  clickButton(button: Button) {
 
-    if(button.callback){
+    if (button.callback) {
       button.callback();
     }
 
-    if(button.link){
+    if (button.link) {
       this.router.navigate([button.link]);
     }
   }

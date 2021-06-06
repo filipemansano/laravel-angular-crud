@@ -1,3 +1,4 @@
+import { CitySelectComponent } from './components/city-select/city-select.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { ConfirmationService } from 'primeng/api';
 import { MatButtonModule } from '@angular/material/button';
@@ -16,8 +17,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { InputFieldComponent } from './components/input-field/input-field.component';
 import { CustomFieldComponent } from './components/custom-field/custom-field.component';
+import { DropdownModule } from 'primeng/dropdown';
+
 @NgModule({
   declarations: [
+    CitySelectComponent,
     SmartTableComponent,
     InputFieldComponent,
     CustomFieldComponent
@@ -41,6 +45,7 @@ import { CustomFieldComponent } from './components/custom-field/custom-field.com
     MatMenuModule,
     MatButtonModule,
     MatSnackBarModule,
+    DropdownModule,
 
     TableModule,
     ButtonModule,

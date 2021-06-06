@@ -6,6 +6,8 @@ const baseEntityMetadata: EntityMetadataMap = {
       pageInfo: null
     }
   },
+
+  Plan: {}
 };
 
 export const baseEntityConfig = {

@@ -33,7 +33,7 @@ trait Pagination {
     public function scopeSort($query, $column, $direction){
 
         if($column && $direction){
-            $this->validateColumn($column);
+            //$this->validateColumn($column);
             $direction = $direction == '1' ? 'ASC' : 'DESC';
             $query = $query->orderBy($column, $direction);
         }

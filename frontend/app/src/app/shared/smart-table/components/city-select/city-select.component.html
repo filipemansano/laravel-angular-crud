@@ -1,0 +1,14 @@
+<p-dropdown
+  [options]="cities"
+  [formControl]="control"
+  optionLabel="label"
+  optionValue="value"
+  [group]="true"
+  [filter]="true"
+  filterBy="label"
+  styleClass="w-full"
+  [emptyFilterMessage]="emptyFilterMessage"
+  (onFilter)="filter($event.filter)"
+  [showClear]="true"
+  [placeholder]="placeholder">
+</p-dropdown>
