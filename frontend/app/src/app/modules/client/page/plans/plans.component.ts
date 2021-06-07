@@ -58,7 +58,7 @@ export class PlansComponent implements OnInit {
       map(([plans, client]) => {
         const selectedsIds = client.plans.map(x => x.id);
         const filter = (x: Plan) => {
-          return { id: x.id, label: x.name, name: x.name };
+          return { id: x.id, label: `${x.name} (R$ ${x.monthly_payment})`, name: x.name };
         };
 
         this.plans = {

@@ -1,8 +1,11 @@
 migrate:
 	docker-compose run --rm php bash -c "php artisan migrate:refresh; php artisan db:seed; php artisan populate:cities; php artisan populate:clients; php artisan passport:client --password --name=webapp --provider=users"
 
+build:
+	docker-compose build
+
 start:
-	docker-compose up --force-recreate --remove-orphans -d
+	docker-compose up -d
 
 stop:
 	docker-compose stop
@@ -12,6 +15,3 @@ install:
 
 test:
 	docker-compose run --rm php bash -c "./vendor/bin/phpunit"
-
-angular-dev-server:
-	docker-compose exec angular bash -c "ng serve --host 0.0.0.0"

@@ -22,9 +22,9 @@ git clone https://github.com/filipemansano/laravel-angular-crud.git
 
 > It's necessary have the [docker](https://www.docker.com/) and [docker-compose](https://docs.docker.com/compose/install/) installed.
 
-now run command below to start a docker-machine
+now run command below to build and start a docker-machine
 ```bash
-make start
+make build && make start
 ```
 
 after all containers is up install the dependencies

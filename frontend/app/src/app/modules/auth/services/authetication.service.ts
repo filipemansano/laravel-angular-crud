@@ -34,7 +34,7 @@ export class AuthenticationService {
 
     this.oauthService.configure({
       oidc: false,
-      requireHttps: environment.production,
+      requireHttps: false,
       clientId: dynamicEnv.id.toString(),
       dummyClientSecret: dynamicEnv.secret,
       tokenEndpoint: `${environment.endpoint}/oauth/token`,

@@ -39,8 +39,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.store.select(selectAuthLoading).pipe(takeUntil(this._destroy$)).subscribe(loading => this.loading = loading);
 
     this.loginForm = this.formBuilder.group({
-      username: ['admin@admin.com', [Validators.required, Validators.email]],
-      password: ['password', [Validators.required, Validators.minLength(6)]],
+      username: [null, [Validators.required, Validators.email]],
+      password: [null, [Validators.required, Validators.minLength(6)]],
     });
   }
 

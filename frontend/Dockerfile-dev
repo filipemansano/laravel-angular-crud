@@ -1,0 +1,9 @@
+# used in the development process 
+FROM node:latest as angular
+WORKDIR /app
+COPY ./app/package.json /app
+RUN npm install -g npm@6
+RUN npm -v
+RUN npm install -g @angular/cli
+RUN npm install
+RUN ng serve --host 0.0.0.0 --port 80

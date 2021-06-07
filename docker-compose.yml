@@ -18,9 +18,10 @@ services:
   angular:
     build:
       context: ./frontend
+      #dockerfile: Dockerfile-dev
     tty: true
     ports:
-       - '9000:4200'
+       - '9000:80'
     expose:
        - 9000
     volumes:

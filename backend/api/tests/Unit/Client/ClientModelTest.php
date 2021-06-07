@@ -4,7 +4,6 @@ namespace Tests\Unit\Client;
 
 use App\Models\City;
 use App\Models\Client;
-use App\Models\Plan;
 use App\Models\State;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
@@ -123,7 +122,7 @@ class ClientModelTest extends TestCase
         $city = City::factory(['state_id' => $saopaulo])->create()->id;
 
         $client = Client::factory(['city_id' => $city])->hasAttached(
-            Plan::factory(['id' => Plan::FREE_PLAN]),
+            $this->plan,
         )->create();
 
         $this->expectExceptionMessage("Clientes do plano FREE, do estado de São Paulo, não podem ser excluídos");
