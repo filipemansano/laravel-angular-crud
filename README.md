@@ -2,7 +2,7 @@
 This project have 2 sub-project, an API with Laravel 8 and a Frontend with Angular 11, each project have your own readme
 
 - [click here](https://github.com/filipemansano/laravel-angular-crud/tree/master/backend) to access API readme
-- [click here](https://github.com/filipemansano/laravel-angular-crud/tree/master/frontned) to access Frontend readme
+- [click here](https://github.com/filipemansano/laravel-angular-crud/tree/master/frontend) to access Frontend readme
 
 ---
 
