@@ -11,7 +11,7 @@ stop:
 	docker-compose stop
 
 install:
-	docker-compose run --rm php bash -c "cp -n '.env.example' '.env'; php composer.phar install"
+	docker-compose run --rm php bash -c "cp -n '.env.example' '.env'; php composer.phar install; php artisan passport:keys"
 
 test:
 	docker-compose run --rm php bash -c "./vendor/bin/phpunit"
