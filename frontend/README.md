@@ -21,8 +21,8 @@ this project use Angular Material / PrimeNG components and Tailwind utilities
 
 ---
 
-## Documentation
-Run application and acess [this link](http://localhost:9000)
+## Demo
+With all docker containers up acess [this link](http://localhost:9000)
 
 ---
 
