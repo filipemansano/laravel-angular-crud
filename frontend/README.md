@@ -8,6 +8,8 @@ this application makes use of the following features of the framework
 - Guard
 - Routes
 - Interceptors
+- Directive
+- Pipe
 
 NgRX
 - action
