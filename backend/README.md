@@ -25,6 +25,9 @@ for data storage the relational database `MySQL 8` was used
 ## Documentation
 Run application and acess [this link](http://localhost:8000/docs/index.html) for read documentation of API (CRUD commands).
 
+![image](https://user-images.githubusercontent.com/6247393/120947693-a23c4980-c716-11eb-93b4-143838daf2e2.png)
+
+
 to populate cities, state and clients it's used a custom command
 - `php artisan populate:cities`
 - `php artisan populate:clients`
